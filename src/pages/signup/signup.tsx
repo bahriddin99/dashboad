@@ -7,6 +7,8 @@ import { useMask } from "@react-input/mask";
 import { useState } from "react";
 import { auth } from "../../service";
 import Signupmodal from "../../components/modal/signup/signupmodal";
+import Notifation from "../../utils/notifation";
+import { ToastContainer } from "react-toastify";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,20 +33,24 @@ const Signup = () => {
     const response = await auth.sign_up(payload)
     response.status === 200 && setModal(true)
     console.log(response);
+    if(response.status===200){
+      Notifation({title: "Success", type:"success"})
+     }
     
   } catch (error) {
     console.log(error);
-    
+    Notifation({title: "Xatolik mavjud", type:"error"})
   }
   };
   return (
     <>
+     <ToastContainer/>
     <Signupmodal open={modal} handleClose={()=>setModal(false)} email={email}/>
       <div className="h-screen flex items-center border border-3 rounded-md  justify-center flex-col gap-8 p-">
         <h1 className="text-[35px] font-bold sm:text-[40px] md:text-[50px]">
           Ro'yxatdan o'tish
         </h1>
-        <button onClick={()=>setModal(true)}>open madal</button>
+        {/* <button onClick={()=>setModal(true)}>open madal</button> */}
         <div className="max-w-[600px]">
           <Formik
             initialValues={initialValues}
