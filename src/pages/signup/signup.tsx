@@ -10,9 +10,9 @@ import Signupmodal from "../../components/modal/signup/signupmodal";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [email, setEmail] = useState("");
-  const initialValues: SignUp = {
+  const [modal,setModal] = useState(false)
+  const [email, setEmail] = useState("")
+  const initialValues:SignUp = {
     full_name: "",
     email: "",
     password: "",
@@ -20,35 +20,31 @@ const Signup = () => {
   };
   const inputRef = useMask({
     mask: "+998 (__) ___-__-__",
-    replacement: { _: /\d/ },
+    replacement:{_:/\d/}
   });
-
-  const handleSubmit = async (values: SignUp) => {
-    setEmail(values.email);
-    const phone_number = values.phone_number.replace(/\D/g, "");
-    const payload = { ...values, phone_number: `+${phone_number}` };
-    try {
-      const response = await auth.sign_up(payload);
-      response.status === 200 && setModal(true);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+ 
+  const handleSubmit =async (values:SignUp) => {
+    setEmail(values.email)
+  const phone_number = values.phone_number.replace(/\D/g, "")
+  const payload = {...values, phone_number: `+${phone_number}`}
+  try {
+    const response = await auth.sign_up(payload)
+    response.status === 200 && setModal(true)
+    console.log(response);
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
   };
   return (
     <>
-      
-      <Signupmodal
-        open={modal}
-        handleClose={() => setModal(false)}
-        email={email}
-      />
-    
-      <div className=" flex items-center border border-3 rounded-md mt-10  w-[500px] ml-[400px]  shadow-2xl flex-col  p-5 ">
+    <Signupmodal open={modal} handleClose={()=>setModal(false)} email={email}/>
+      <div className="h-screen flex items-center border border-3 rounded-md  justify-center flex-col gap-8 p-">
         <h1 className="text-[35px] font-bold sm:text-[40px] md:text-[50px]">
           Ro'yxatdan o'tish
         </h1>
-        <button onClick={() => setModal(true)}>open madal</button> 
+        <button onClick={()=>setModal(true)}>open madal</button>
         <div className="max-w-[600px]">
           <Formik
             initialValues={initialValues}
@@ -60,7 +56,6 @@ const Signup = () => {
                 <Field
                   name="full_name"
                   type="text"
-                  
                   as={TextField}
                   label="Ismingizni kiriting"
                   fullWidth
@@ -139,7 +134,6 @@ const Signup = () => {
                   type="submit"
                   variant="contained"
                   color="primary"
-
                   disabled={isSubmitting}
                   fullWidth
                 >
