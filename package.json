@@ -10,15 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mui/material": "^5.15.15",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.16",
+    "@mui/material": "^5.15.16",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@react-input/mask": "^1.2.0",
     "axios": "^1.6.8",
-    "react": "^18.2.0",
+    "formik": "^2.4.6",
+    "js-cookie": "^3.0.5",
+    "react": "^18.3.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
-    "styled-components": "^6.1.9"
+    "react-toastify": "^10.0.5",
+    "styled-components": "^6.1.9",
+    "toastify": "^2.0.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
