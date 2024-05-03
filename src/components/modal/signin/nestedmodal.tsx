@@ -35,6 +35,7 @@ export default function NestedModal({ open, handleClose }: ModalProps) {
     try {
       const response = await auth.forget_password(values);
       response.status === 200 && setModal(true);
+      handleClose()
     } catch (error) {
       console.log(error);
     }

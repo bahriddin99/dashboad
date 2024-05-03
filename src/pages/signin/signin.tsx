@@ -8,10 +8,12 @@ import { auth } from "../../service";
 import NestedModal from "../../components/modal/signin/nestedmodal";
 import Notifation from "../../utils/notifation";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Signin() {
   const [showPassword, setShowPassword] = useState(false);
   const [modal, setModal] = useState(false);
+  const navigate = useNavigate()
 
   const initialValues: SignIn = {
     email: "",
@@ -23,6 +25,7 @@ function Signin() {
       const response = await auth.sign_in(values)
      if(response.status===200){
       Notifation({title: "Success", type:"success"})
+      navigate("/main")
      }
       
     } catch (error) {

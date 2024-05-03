@@ -45,6 +45,8 @@ function ChildModal({ open, handleClose, email }: IModalProps) {
       console.log(payload);
     try {
       const response = await auth.update_password(payload);
+
+      handleClose()
       console.log(response);
     } catch (error) {
       console.log(error);

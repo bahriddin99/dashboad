@@ -17,8 +17,10 @@ import Toolbar from "@mui/material/Toolbar";
 // import Typography from "@mui/material/Typography";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import routers from "../../router/routers";
-import logo from "../../imgs/logo.svg"
-import Logotip from "../../imgs/logotip";
+// import logo from "../../imgs/logo.svg"
+// import Logotip from "../../assets/imgs/logotip";
+import logos from '../../assets/icons/logomain.svg'
+// import Logotip from "../../assets/imgs/logotip";
 const drawerWidth = 240;
 
 interface Props {
@@ -48,8 +50,8 @@ export default function Layout(props: Props) {
 
   const drawer = (
     <div>
-      <Toolbar />
-      <Divider />
+      {/* <Toolbar /> */}
+      {/* <Divider /> */}
       <List>
         {routers?.map((item, index) => (
           <NavLink
@@ -92,7 +94,7 @@ export default function Layout(props: Props) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
-      >
+        >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -100,7 +102,7 @@ export default function Layout(props: Props) {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
-          >
+            >
             <MenuIcon />
           </IconButton>
          
@@ -130,10 +132,7 @@ export default function Layout(props: Props) {
           }}
        
         >
-            <div className="h-[100px] w-full flex items-center justify-center">
-                <img src={logo} alt="logo" className="w-32 h-32" />
-            </div>
-            {/* <Logotip/> */}
+           
           {drawer}
         </Drawer>
         <Drawer
@@ -147,6 +146,9 @@ export default function Layout(props: Props) {
           }}
           open
         >
+           <div className="h-[70px]  w-full flex items-center justify-center">
+                <img src={logos} alt="logo" className="w-32 h-32 " />
+            </div>
           {drawer}
         </Drawer>
       </Box>
