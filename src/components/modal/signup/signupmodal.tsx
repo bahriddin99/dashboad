@@ -1,5 +1,5 @@
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ModalProps } from "../../../interface/global";
 // import { useNavigat } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ interface IModalProp extends ModalProps {
 
 const Signupmodal = ({ open, handleClose, email }: IModalProp) => {
   const [code, setCode] = useState("");
+  const [secondsLeft, setSecondcLeft] = useState(60)
   const navigate = useNavigate();
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +38,24 @@ const Signupmodal = ({ open, handleClose, email }: IModalProp) => {
   } catch (error) {
     console.log(error);
   }
+  useEffect(()=>{
+    let timer = null;
+    if(open){
+      timer = setInterval(()=>{
+        setSecondcLeft((prevSeconds)=>prevSeconds-1);
+      },1000)
+    }
+    return ()=>{
+      if(timer) clearInterval(timer);
+    };
+  },[open]);
+  useEffect(()=>{
+    // let timer = null;
+    if(secondsLeft === 0){
+    handleClose();
+    }
+  
+  },[secondsLeft,handleClose]);
 
   return (
     <>
@@ -66,6 +85,9 @@ const Signupmodal = ({ open, handleClose, email }: IModalProp) => {
                 sx={{ marginY: "20px" }}
                 onChange={(e) => setCode(e.target.value)}
               />
+                <Typography variant="body1" component="p" className="py-4">
+                {`Time left ${secondsLeft} seconds`}
+              </Typography>
               <Button
                 type="submit"
                 fullWidth

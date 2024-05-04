@@ -140,7 +140,7 @@ const Signup = () => {
                     ),
                   }}
                 />
-                <div className="pt-2 pb-2">
+                <div className="pt-2 pb-2  ">
                   <button  onClick={() => navigate("/signin")}>
                     login orqali kirish?
                   </button>

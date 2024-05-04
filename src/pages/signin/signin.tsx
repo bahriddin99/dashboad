@@ -13,34 +13,32 @@ import { useNavigate } from "react-router-dom";
 function Signin() {
   const [showPassword, setShowPassword] = useState(false);
   const [modal, setModal] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const initialValues: SignIn = {
     email: "",
     password: "",
   };
-  const handleSubmit = async (values:SignIn) => {
-   
+  const handleSubmit = async (values: SignIn) => {
     try {
-      const response = await auth.sign_in(values)
-     if(response.status===200){
-      Notifation({title: "Success", type:"success"})
-      navigate("/main")
-     }
-      
+      const response = await auth.sign_in(values);
+      if (response.status === 200) {
+        localStorage.setItem("token",response.data.access_token)
+        Notifation({ title: "Tizimga muvaffaqiyatli kirdingiz", type: "success" });
+        navigate("/main");
+      }
     } catch (error) {
       console.log(error);
-      Notifation({title: "Xatolik mavjud", type:"error"})
-      
+      Notifation({ title: "Xatolik mavjud", type: "error" });
     }
   };
 
   return (
     <>
-    <ToastContainer/>
-    <NestedModal open={modal} handleClose={()=>setModal(false)}/>
-      <div className="h-screen flex items-center justify-center flex-col gap-8 p-5">
-        <h1 className="text-[35px] font-bold">Tizimga kirish</h1>
+      <ToastContainer />
+      <NestedModal open={modal} handleClose={() => setModal(false)} />
+      <div className="h-screen flex items-center justify-center flex-col gap-8 p-5 ">
+        <h1 className="text-[35px] font-bold mt-[-150px]">Tizimga kirish</h1>
         <div>
           <Formik
             initialValues={initialValues}
@@ -93,12 +91,18 @@ function Signin() {
                     ),
                   }}
                 />
-                <p
-                  className="mb-3 cursor-pointer hover:text-blue"
-                  onClick={() => setModal(true)}
-                >
-                  Parolni unutdingizmi?
-                </p>
+                <div className="flex  justify-between mb-3 items-center ">
+                  <p
+                    className=" cursor-pointer hover:text-blue"
+                    onClick={() => setModal(true)}
+                  >
+                    Parolni unutdingizmi?
+                  </p>
+
+                  <p className="cursor-pointer" onClick={() => navigate("/")}>
+                    Ro'yxatdan o'tish qismi
+                  </p>
+                </div>
                 <Button
                   type="submit"
                   variant="contained"

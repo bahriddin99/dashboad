@@ -1,21 +1,17 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import routers from "../../router/routers";
-
-import logos from '../../assets/icons/logomain.svg'
+import logos from "../../assets/icons/logomain.svg";
+import Headerbar from "./headerbar";
+import { List } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -45,14 +41,17 @@ export default function Layout(props: Props) {
   console.log(pathname);
 
   const drawer = (
-    <div>
-     
+    <div className="p-2 rounded-md bg-[] ">
       <List>
         {routers?.map((item, index) => (
           <NavLink
             to={item.path}
             key={index}
-            className={item.path === pathname ? "block bg-blue-500 text-white" : ""}
+            className={
+              item.path === pathname
+                ? "block bg-blue-500 rounded-md text-white"
+                : ""
+            }
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -62,7 +61,7 @@ export default function Layout(props: Props) {
                       item.path === pathname ? "text-white" : "text-gray-500"
                     }
                   >
-                   {item.icon}
+                    {item.icon}
                   </span>
                 </ListItemIcon>
                 <ListItemText primary={item?.content}></ListItemText>
@@ -72,7 +71,6 @@ export default function Layout(props: Props) {
         ))}
       </List>
       <Divider />
-      
     </div>
   );
 
@@ -82,33 +80,12 @@ export default function Layout(props: Props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-        >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-            >
-            <MenuIcon />
-          </IconButton>
-         
-        </Toolbar>
-      </AppBar>
+      <Headerbar handleDrawerToggle={handleDrawerToggle} />
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
@@ -125,9 +102,7 @@ export default function Layout(props: Props) {
               width: drawerWidth,
             },
           }}
-       
         >
-           
           {drawer}
         </Drawer>
         <Drawer
@@ -141,9 +116,9 @@ export default function Layout(props: Props) {
           }}
           open
         >
-           <div className="h-[70px]  w-full flex items-center justify-center">
-                <img src={logos} alt="logo" className="w-32 h-32 " />
-            </div>
+          <div className="h-[70px]  w-full flex items-center justify-center">
+            <img src={logos} alt="logo" className="w-32 h-32 " />
+          </div>
           {drawer}
         </Drawer>
       </Box>
@@ -156,7 +131,7 @@ export default function Layout(props: Props) {
         }}
       >
         <Toolbar />
-        <Outlet/>
+        <Outlet />
       </Box>
     </Box>
   );

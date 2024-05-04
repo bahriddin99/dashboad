@@ -13,7 +13,7 @@ import { ErrorMessage, Field, Formik,Form } from "formik";
 import { auth } from "../../../service";
 import { UpdatePassword } from "../../../interface/aouth";
 import {  updatePassValidationSchema } from "../../../utils/validation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalProps } from "../../../interface/global";
 const style = {
   position: "absolute" as "absolute",
@@ -34,10 +34,29 @@ interface IModalProps extends ModalProps {
 
 function ChildModal({ open, handleClose, email }: IModalProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const [secondsLeft, setSecondcLeft] = useState(60)
   const initialValues: UpdatePassword = {
     code: "",
     new_password: "",
   };
+  useEffect(()=>{
+    let timer = null;
+    if(open){
+      timer = setInterval(()=>{
+        setSecondcLeft((prevSeconds)=>prevSeconds-1);
+      },1000)
+    }
+    return ()=>{
+      if(timer) clearInterval(timer);
+    };
+  },[open]);
+  useEffect(()=>{
+    // let timer = null;
+    if(secondsLeft === 0){
+    handleClose();
+    }
+  
+  },[secondsLeft,handleClose]);
   const handleSubmit = async (values: UpdatePassword) => {
     // console.log('hello')
     
@@ -120,6 +139,9 @@ function ChildModal({ open, handleClose, email }: IModalProps) {
                   ),
                 }}
               />
+              <Typography variant="body1" component="p" className="py-4">
+                {`Time left ${secondsLeft} seconds`}
+              </Typography>
 
               <Button
                 type="submit"
