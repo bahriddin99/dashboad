@@ -20,6 +20,12 @@ export interface ForgetPassword {
   email: string;
   
 }
+export interface ServicesGetTable{
+  Owner_email: string;
+  Limit:string,
+  Page:string
+  
+}
 
 export interface Request {
   sign_up: (data: SignUp) => any;
@@ -27,4 +33,6 @@ export interface Request {
   sign_in:(data: SignIn) => any;
   forget_password:(data: ForgetPassword) => any;
   update_password:(data: UpdatePassword) => any;
+  get_services:(data:ServicesGetTable)=>any
+
 }

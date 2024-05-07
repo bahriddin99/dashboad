@@ -85,9 +85,9 @@ const Signupmodal = ({ open, handleClose, email }: IModalProp) => {
                 sx={{ marginY: "20px" }}
                 onChange={(e) => setCode(e.target.value)}
               />
-                <Typography variant="body1" component="p" className="py-4">
+                {/* <Typography variant="body1" component="p" className="py-4">
                 {`Time left ${secondsLeft} seconds`}
-              </Typography>
+              </Typography> */}
               <Button
                 type="submit"
                 fullWidth

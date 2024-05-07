@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.16",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-data-grid": "^7.3.2",
     "@react-input/mask": "^1.2.0",
     "axios": "^1.6.8",
     "formik": "^2.4.6",
