@@ -26,7 +26,8 @@
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.9",
     "toastify": "^2.0.1",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

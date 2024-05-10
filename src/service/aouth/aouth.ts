@@ -7,7 +7,7 @@ const auth: Request = {
   sign_in: (data) => request.post("/auth/login", data),
   forget_password: (data) => request.post("/auth/forgot-password", data),
   update_password: (data) => request.post("/auth/verify-forgot-password", data),
-  get_services: (data) => request.post("/auth/service/get-all"),
+  get_services: (data) => request.post("/auth/service/get-all",data),
 };
 
 export default auth;

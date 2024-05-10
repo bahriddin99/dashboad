@@ -12,7 +12,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { removeDataToCookie } from '../../utils/data-service';
 import { useNavigate } from 'react-router-dom';
-import baxa from "../../assets/imgs/baxa.png"
+import baxa from "../../assets/imgs/baxa.jpg"
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

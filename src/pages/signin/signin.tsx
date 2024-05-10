@@ -9,6 +9,7 @@ import NestedModal from "../../components/modal/signin/nestedmodal";
 import Notifation from "../../utils/notifation";
 import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { setDataToCookie } from "../../utils/data-service";
 
 function Signin() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +24,10 @@ function Signin() {
     try {
       const response = await auth.sign_in(values);
       if (response.status === 200) {
+        setDataToCookie("token",response?.data.access_token)
+        setDataToCookie("email",response?.data.email)
         localStorage.setItem("token",response.data.access_token)
+
         Notifation({ title: "Tizimga muvaffaqiyatli kirdingiz", type: "success" });
         navigate("/main");
       }

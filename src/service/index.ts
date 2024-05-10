@@ -1,2 +1,3 @@
 import auth from "./aouth/aouth";
-export {auth}
+import servicess from "./servicesc/servicesc";
+export {auth,servicess}
