@@ -22,7 +22,7 @@ const style = {
   pb: 3,
 };
 
-export default function NestedModal({ open, handleClose }: ModalProps) {
+export default function NestedModal({ open, handelClose }: ModalProps) {
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState("");
 
@@ -35,7 +35,7 @@ export default function NestedModal({ open, handleClose }: ModalProps) {
     try {
       const response = await auth.forget_password(values);
       response.status === 200 && setModal(true);
-      handleClose()
+      handelClose()
     } catch (error) {
       console.log(error);
     }
@@ -43,10 +43,10 @@ export default function NestedModal({ open, handleClose }: ModalProps) {
 
   return (
     <>
-        <ChildModal open={modal} handleClose={()=>setModal(false) } email={email}/>
+        <ChildModal open={modal} handelClose={()=>setModal(false) } email={email}/>
         <Modal
             open={open}
-            onClose={handleClose}
+            onClose={handelClose}
             aria-labelledby="parent-modal-title"
             aria-describedby="parent-modal-description"
         >

@@ -38,7 +38,7 @@ export default function Layout(props: Props) {
     }
   };
   const { pathname } = useLocation();
-  console.log(pathname);
+  // console.log(pathname);
 
   const drawer = (
     <div className="p-2 rounded-md bg-[] ">

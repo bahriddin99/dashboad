@@ -1,6 +1,7 @@
 export interface ModalProps {
     open: boolean,
-    handleClose:()=>void
+    handelClose:()=>void,
+    item?:any
 }
 
 export interface Header {
@@ -8,12 +9,14 @@ export interface Header {
     value:string
 }
 export interface BodyItem {
-    id: number,
+    id: string,
     [key:string]:any
 }
 
 export interface TableProps {
     headers: Header[],
     body: BodyItem[],
-    isLoading: boolean
+    isLoading: boolean,
+    deleteItem:(id:string)=>void
+    editeItem:(item:any)=>void
 }

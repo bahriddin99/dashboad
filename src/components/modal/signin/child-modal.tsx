@@ -32,7 +32,7 @@ interface IModalProps extends ModalProps {
   email: string;
 }
 
-function ChildModal({ open, handleClose, email }: IModalProps) {
+function ChildModal({ open, handelClose, email }: IModalProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [secondsLeft, setSecondcLeft] = useState(60)
   const initialValues: UpdatePassword = {
@@ -53,10 +53,10 @@ function ChildModal({ open, handleClose, email }: IModalProps) {
   useEffect(()=>{
     // let timer = null;
     if(secondsLeft === 0){
-    handleClose();
+      handelClose();
     }
   
-  },[secondsLeft,handleClose]);
+  },[secondsLeft,handelClose]);
   const handleSubmit = async (values: UpdatePassword) => {
     // console.log('hello')
     
@@ -65,7 +65,7 @@ function ChildModal({ open, handleClose, email }: IModalProps) {
     try {
       const response = await auth.update_password(payload);
 
-      handleClose()
+      handelClose()
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -76,7 +76,7 @@ function ChildModal({ open, handleClose, email }: IModalProps) {
     <>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handelClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >

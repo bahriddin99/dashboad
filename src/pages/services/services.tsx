@@ -1,47 +1,57 @@
 import { useEffect, useState } from "react";
-// import Tables from "../../components/ui/table";
-// import { servicess } from "../../service";
+import Tables from "../../components/ui/table";
+
 import { getDataFromCookie } from "../../utils/data-service";
 import { Button, IconButton, InputBase } from "@mui/material";
-import Paper from '@mui/material/Paper';
-import useServerCreate from "../../store/store";
+import Paper from "@mui/material/Paper";
+import ServiceAddModal from "../../components/modal/service/service-add";
+import useServeceStore from "../../store/service";
 
 import SearchIcon from "@mui/icons-material/Search";
+import { ToastContainer } from "react-toastify";
 const services = () => {
-  const {getData} = useServerCreate()
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [item, setItem] = useState({});
+  const { getData, data, isLoading, deletData } = useServeceStore();
+
   const [params, SetParams] = useState({
     limit: 10,
     page: 1,
     owner_email: getDataFromCookie("email"),
   });
-  // const getData = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const res = await servicess.get_services(params);
-  //     res.data.servicess.array.forEach((item: any, index: number) => {
-  //       item.index = index + 1;
-  //     });
-  //     setData(res?.data?.services);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setIsLoading(false);
-  // };
+  console.log(data);
+
   useEffect(() => {
     getData(params);
-  }, [params,getData]);
+  }, [params, getData]);
 
   const headers = [
     { title: "T/R", value: "index" },
     { title: "Xizmat nomi", value: "name" },
     { title: "Xizmat narxi", value: "price" },
-    { title: "", value: "action" },
+    { title: "Action", value: "action" },
   ];
+
+  const editeItem = (item: any) => {
+    setModal(true);
+    setItem(item);
+  };
+
+  const handelClose = ()=>{
+    setModal(false)
+    setItem({})
+  }
 
   return (
     <div>
+      <ToastContainer />
+      {modal && (
+        <ServiceAddModal
+          open={modal}
+          handelClose={handelClose}
+          item={item}
+        />
+      )}
       <div className="py-3 flex justify-between items-center ">
         <div className="w-96">
           <Paper
@@ -63,9 +73,21 @@ const services = () => {
             </IconButton>
           </Paper>
         </div>
-        <Button variant="contained" color="primary">Xizmat qo'shish</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setModal(true)}
+        >
+          Xizmat qo'shish
+        </Button>
       </div>
-      {/* <Tables headers={headers} body={data} isLoading={isLoading} /> */}
+      <Tables
+        headers={headers}
+        body={data}
+        isLoading={isLoading}
+        deleteItem={deletData}
+        editeItem={editeItem}
+      />
     </div>
   );
 };

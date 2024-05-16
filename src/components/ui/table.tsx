@@ -12,68 +12,64 @@ import {
 } from "@mui/material";
 
 import { TableProps } from "../../interface/global";
-import dele from "../../assets/imgs/dele.svg";
-import edit from "../../assets/imgs/item.svg";
+import Dele from "../../assets/imgs/dele";
+import Item from "../../assets/imgs/item";
+import { ToastContainer } from "react-toastify";
 
-const Tables = ({ headers, body, isLoading }: TableProps) => {
-  const deleteItem = (id: number) => {
-    console.log(id);
-  };
-  const editItem = (id: number) => {
-    console.log(id);
-  };
+const Tables = (props: TableProps) => {
+
   return (
+    <>
+    <ToastContainer />
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-label="tableTitle" size="medium">
+          <Table
+            sx={{ minWidth: 750 }}
+            size="medium"
+            aria-labelledby="tableTitle"
+          >
             <TableHead>
               <TableRow>
-                {headers?.map((header, index) => (
+                {props.headers?.map((header, index) => (
                   <TableCell key={index}>
                     <TableSortLabel>{header.title}</TableSortLabel>
                   </TableCell>
                 ))}
               </TableRow>
             </TableHead>
-
             <TableBody>
-              {isLoading
-                ? Array.from(new Array(5
-                  
-                )).map((_, index) => (
+              {props.isLoading
+                ? Array.from(new Array(5)).map((_, index) => (
                     <TableRow key={index}>
-                      {headers?.map((_, i) => (
+                      {props.headers?.map((_, i) => (
                         <TableCell key={i}>
-                          <Skeleton/>
+                          <Skeleton />
                         </TableCell>
                       ))}
                     </TableRow>
                   ))
-                : body?.map((item, index) => (
+                : props.body?.map((item, index) => (
                     <TableRow key={index}>
-                      {headers?.map((header, i) => (
+                      {props.headers?.map((header, i) => (
                         <TableCell
                           key={i}
                           className={item[header.value]?.class}
                         >
                           {header.value === "action" ? (
                             <div className="flex gap-3 cursor-pointer items-center">
-                              <img
-                                src={dele}
-                                alt=""
-                                onClick={() => deleteItem(item.id)}
-                              />
-                              <img
-                                src={edit}
-                                alt=""
-                                onClick={() => editItem(item.id)}
-                              />
+                              <div onClick={() => props.deleteItem(item.id)} >
+                                <Dele/>
+                              </div>
+
+                             <div onClick={() => props.editeItem(item)} >
+                             <Item/>
+                             </div>
                             </div>
-                          ) : item[header?.value].title ? (
-                            item[header?.value].title
+                          ) : header.value === "index" ? (
+                            index + 1
                           ) : (
-                            item[header?.value]
+                            item[header.value]
                           )}
                         </TableCell>
                       ))}
@@ -84,6 +80,7 @@ const Tables = ({ headers, body, isLoading }: TableProps) => {
         </TableContainer>
       </Paper>
     </Box>
+  </>
   );
 };
 

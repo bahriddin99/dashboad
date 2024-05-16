@@ -24,12 +24,13 @@ function Signin() {
     try {
       const response = await auth.sign_in(values);
       if (response.status === 200) {
+        navigate("/main")
         setDataToCookie("token",response?.data.access_token)
         setDataToCookie("email",response?.data.email)
         localStorage.setItem("token",response.data.access_token)
-
         Notifation({ title: "Tizimga muvaffaqiyatli kirdingiz", type: "success" });
-        navigate("/main");
+       
+        
       }
     } catch (error) {
       console.log(error);
@@ -40,7 +41,8 @@ function Signin() {
   return (
     <>
       <ToastContainer />
-      <NestedModal open={modal} handleClose={() => setModal(false)} />
+      <NestedModal open={modal} handelClose={() => setModal(false)} />  
+
       <div className="h-screen flex items-center justify-center flex-col gap-8 p-5 ">
         <h1 className="text-[35px] font-bold mt-[-150px]">Tizimga kirish</h1>
         <div>

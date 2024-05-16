@@ -38,3 +38,8 @@ export const updatePassValidationSchema = Yup.object().shape({
     code: Yup.string().required()
  
 });
+export const serviceValidationSchema = Yup.object().shape({
+  name: Yup.string().required(" name is required"),
+  price: Yup.string().required("price is required"),
+ 
+});
