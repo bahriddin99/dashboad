@@ -1,12 +1,15 @@
 export interface GetParams {
   limit: number;
   page: number;
-  owner_email: string | undefined;
+  owner_id?: string | undefined;
 }
 export interface PostService {
   name:string,
+  // created_at: string;
+  // id: string,
+  // updated_at: string,
   price: number | string,
-  owner_email?: string | undefined
+  owner_id?: string | undefined
 }
 
 export interface UpdatService extends PostService {
@@ -15,6 +18,7 @@ export interface UpdatService extends PostService {
 
 export interface ServiceStore {
   data: any[];
+  totalCount:number,
   isLoading: boolean
   getData: (params: GetParams) => Promise<any>;
   createData:(data: PostService) => Promise<any>;

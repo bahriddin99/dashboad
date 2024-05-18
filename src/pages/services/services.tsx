@@ -1,29 +1,45 @@
 import { useEffect, useState } from "react";
 import Tables from "../../components/ui/table";
-
 import { getDataFromCookie } from "../../utils/data-service";
 import { Button, IconButton, InputBase } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import ServiceAddModal from "../../components/modal/service/service-add";
 import useServeceStore from "../../store/service";
-
+import GlobalPagination from "../../components/ui/pagination";
 import SearchIcon from "@mui/icons-material/Search";
 import { ToastContainer } from "react-toastify";
 const services = () => {
   const [modal, setModal] = useState(false);
   const [item, setItem] = useState({});
-  const { getData, data, isLoading, deletData } = useServeceStore();
+  const { getData, data, isLoading, deletData, totalCount } = useServeceStore();
 
-  const [params, SetParams] = useState({
+  const [params, setParams] = useState({
     limit: 10,
     page: 1,
-    owner_email: getDataFromCookie("email"),
+    owner_id: getDataFromCookie("id"),
   });
   console.log(data);
 
   useEffect(() => {
     getData(params);
   }, [params, getData]);
+
+  data.forEach((item, index) => {
+    if (data.length <= 10) {
+      item.index = params.page * params.limit - (params.limit - 1) + index;
+    }
+  });
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const page = params.get("page");
+    const pageNumber = page ? parseInt(page) : 1;
+    setParams((preveParams) => ({
+      ...preveParams,
+      page: pageNumber,
+    }));
+    console.log(page);
+  }, [location.search]);
 
   const headers = [
     { title: "T/R", value: "index" },
@@ -35,22 +51,25 @@ const services = () => {
   const editeItem = (item: any) => {
     setModal(true);
     setItem(item);
+    // handelClose()
   };
 
-  const handelClose = ()=>{
-    setModal(false)
-    setItem({})
-  }
+  const handelClose = () => {
+    setModal(false);
+    setItem({});
+  };
+  const changePage = (value: number) => {
+    setParams((preveParams) => ({
+      ...preveParams,
+      page: value,
+    }));
+  };
 
   return (
     <div>
       <ToastContainer />
       {modal && (
-        <ServiceAddModal
-          open={modal}
-          handelClose={handelClose}
-          item={item}
-        />
+        <ServiceAddModal open={modal} handelClose={handelClose} item={item} />
       )}
       <div className="py-3 flex justify-between items-center ">
         <div className="w-96">
@@ -87,6 +106,11 @@ const services = () => {
         isLoading={isLoading}
         deleteItem={deletData}
         editeItem={editeItem}
+      />
+      <GlobalPagination
+        totalCount={totalCount}
+        page={params.page}
+        setParams={changePage}
       />
     </div>
   );

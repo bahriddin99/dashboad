@@ -20,3 +20,11 @@ export interface TableProps {
     deleteItem:(id:string)=>void
     editeItem:(item:any)=>void
 }
+
+
+
+export interface PaginationProps {
+    totalCount: number,
+    page:number,
+    setParams:(value:number)=>void
+}

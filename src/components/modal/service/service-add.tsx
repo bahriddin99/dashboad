@@ -1,15 +1,10 @@
-// import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-// import { Typography } from '@mui/material';
-// import TextField from '@mui/material';
-// import Notifation from "../../../utils/notifation";
 import { PostService } from "@services-interface";
 import { serviceValidationSchema } from "../../../utils/validation";
 import { getDataFromCookie } from "../../../utils/data-service";
 import { ModalProps } from "../../../interface/global";
-// import { servicess } from "../../../service";
 import useServeceStore from "../../../store/service";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import { TextField } from "@mui/material";
@@ -67,6 +62,8 @@ const ServiceAddModal = ({ open, handelClose, item }: ModalProps) => {
     if (!item.id) {
       const status = await createData(payload);
       if (status === 201) {
+        // Notifation({ title: "Muvafaqatiyatli qo'shildi", type: "success" });
+        
         handelClose();
       } else {
         Notifation({ title: "Nimadir xato ☹️", type: "error" });
