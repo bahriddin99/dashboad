@@ -8,6 +8,8 @@
    "paths": {
     "@services-interface":["./src/interface/services.ts"],
     "@orders-interface":["./src/interface/orders.ts"],
+    "@dashboad-interface":["./src/interface/dashboad.ts"],
+  
     // "@useOrdersStore":["./src/store/orders.ts"]
    },
 

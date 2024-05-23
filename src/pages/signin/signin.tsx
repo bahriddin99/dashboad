@@ -25,8 +25,10 @@ function Signin() {
       const response = await auth.sign_in(values);
       if (response.status === 200) {
         navigate("/main")
-        setDataToCookie("token",response?.data.access_token)
-        setDataToCookie("email",response?.data.email)
+        setDataToCookie("start",response?.data.created_at.slice(0,10))
+        setDataToCookie("access_token",response?.data.access_token)
+        setDataToCookie("refresh_token",response?.data.refresh_token)
+        setDataToCookie("id",response?.data?.id)
         localStorage.setItem("token",response.data.access_token)
         Notifation({ title: "Tizimga muvaffaqiyatli kirdingiz", type: "success" });
        

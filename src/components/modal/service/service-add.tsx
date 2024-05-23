@@ -62,9 +62,11 @@ const ServiceAddModal = ({ open, handelClose, item }: ModalProps) => {
     if (!item.id) {
       const status = await createData(payload);
       if (status === 201) {
-        // Notifation({ title: "Muvafaqatiyatli qo'shildi", type: "success" });
-        
         handelClose();
+        Notifation({ title: "Muvafaqatiyatli qo'shildi", type: "success" });
+        handelClose();
+        
+        
       } else {
         Notifation({ title: "Nimadir xato ☹️", type: "error" });
       }

@@ -28,3 +28,7 @@ export interface PaginationProps {
     page:number,
     setParams:(value:number)=>void
 }
+
+export interface ProtectedRouteProps {
+    element:string
+}

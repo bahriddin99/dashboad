@@ -59,7 +59,7 @@ const Tables = (props: TableProps) => {
                               <div className="flex gap-3 cursor-pointer items-center">
                                 <div
                                   onClick={() => props.deleteItem(item.id)}
-                                  className="border-2 border-red-600 p-2 rounded-md "
+                                  className="border-2 border-red-600 p-2 rounded-md  "
                                 >
                                   <Dele />
                                 </div>
